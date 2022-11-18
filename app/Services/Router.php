@@ -5,10 +5,11 @@ namespace App\Services;
 class Router {
     private static $list = [];
 
-    public static function route($uri, $page_name) {
+    public static function route(string $uri, string $page_name, array $methods) {
         self::$list[] = [
             "uri" => $uri,
-            "page" => $page_name
+            "page" => $page_name,
+            "methods" => $methods
         ];
     }
 
@@ -17,8 +18,12 @@ class Router {
         
         foreach(self::$list as $route) {
             if ($route['uri'] === '/' . $query) {
-                require_once "views/pages/" . $route['page'];
-                die();
+                if (in_array($_SERVER['REQUEST_METHOD'], $route['methods'])) {
+                    require_once "views/pages/" . $route['page'];
+                    die();
+                } else {
+                    break;
+                }
             }
         }
 
