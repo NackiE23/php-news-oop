@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class DB extends \SQLite3 {
+class Database extends \SQLite3 {
     function __construct($file) {
         $this->open($file);
     }

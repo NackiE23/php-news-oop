@@ -9,6 +9,6 @@ class App {
 
     private static function db() {
         $config = require_once "config/db.php";
-        defined('DB_PATH') || define('DB_PATH', $config['path']);
+        $GLOBALS['db'] = new Database($config['path']);
     }
 }

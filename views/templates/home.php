@@ -1,11 +1,11 @@
 <h1>Home Page</h1>
 
 <?php
-use App\Services\DB;
 
-$db = new DB(DB_PATH);
+use App\Services\Database;
+
 $sql = "SELECT news.id, news.created, news.title, news.main_text, users.username FROM news JOIN users ON news.user_id == users.id ORDER BY news.created DESC";
-$responce = $db->query($sql);
+$responce = $GLOBALS['db']->query($sql);
 
 while ($result = $responce->fetchArray(SQLITE3_ASSOC)) {
     echo "
@@ -32,5 +32,4 @@ while ($result = $responce->fetchArray(SQLITE3_ASSOC)) {
     </div>
     ";
 }
-$db->close();
 ?>
