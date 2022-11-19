@@ -11,8 +11,19 @@ $title = "Register page";
 
 // actions
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    Auth::register(['fname' => 'Igor']);
-    Router::redirect('/login');
+    $success = Auth::register([
+        'email' => $_POST['email'],
+        'username' => $_POST['username'],
+        'password' => $_POST['password'],
+        'password_confirm' => $_POST['password_confirm'],
+    ]);
+
+    if ($success) {
+        Router::redirect('/login');
+    } else {
+        Router::redirect('/register');
+    }
+
     exit();
 }
 
