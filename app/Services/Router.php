@@ -13,20 +13,28 @@ class Router {
         ];
     }
 
+    public static function redirect($uri) {
+        header("Location: " . $uri);
+    }
+
+    public static function raise_error($error_code) {
+        require_once "views/errors/" . $error_code . ".php";
+    }
+
     public static function enable() {
         $query = $_GET['q'];
         
         foreach(self::$list as $route) {
             if ($route['uri'] === '/' . $query) {
                 if (in_array($_SERVER['REQUEST_METHOD'], $route['methods'])) {
-                    require_once "views/pages/" . $route['page'];
-                    die();
+                    require_once "views/pages/" . $route['page'] . ".php";
+                    exit();
                 } else {
                     break;
                 }
             }
         }
 
-        require_once "views/errors/404.php";
+        Router::raise_error('404');
     }
 }

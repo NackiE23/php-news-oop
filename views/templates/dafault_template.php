@@ -1,4 +1,3 @@
-<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,19 +15,37 @@
                 <li class="elements_menu__list_item">
                     <a class="elements_menu__list_item_link" href="/">Home</a>
                 </li>
-                <li class="elements_menu__list_item">
-                    <a class="elements_menu__list_item_link" href="/login">Login</a>
-                </li>
-                <li class="elements_menu__list_item">
-                    <a class="elements_menu__list_item_link" href="/logout">Logout</a>
-                </li>
-                <li class="elements_menu__list_item">
-                    <a class="elements_menu__list_item_link" href="/register">Register</a>
-                </li>
+                <?php 
+                if (!$_SESSION['user']) {
+                    ?>
+                    <li class="elements_menu__list_item">
+                        <a class="elements_menu__list_item_link" href="/login">Login</a>
+                    </li>
+                    <li class="elements_menu__list_item">
+                        <a class="elements_menu__list_item_link" href="/register">Register</a>
+                    </li>
+                    <?php
+                } else {
+                    ?>
+                    <li class="elements_menu__list_item">
+                        <a class="elements_menu__list_item_link" href="/logout">Logout</a>
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
 </header>
+
+<?php if ($_SESSION['message']) { ?>
+<div id="pop-up-messages">
+    <div class="pop-up-message <?= $_SESSION['message']['category'] ?>">
+        <div class="close"></div>
+        <p class="pop-up-message__text"><?= $_SESSION['message']['text'] ?></p>
+    </div>
+</div>
+<?php } unset($_SESSION['message']);?>
 
 <div class="container">
 <?php include 'views/templates/' . $content_template ?>
