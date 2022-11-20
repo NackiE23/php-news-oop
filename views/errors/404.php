@@ -2,7 +2,8 @@
 
 // required context
 $title = "Error 404";
-$content = "<h1>404: Page not found</h1>";
+$error_text = "404: Page not found";
 
 // call a template
-require 'views/templates/error_template.php';
+$content_template = 'error.php';
+require 'views/templates/dafault_template.php';

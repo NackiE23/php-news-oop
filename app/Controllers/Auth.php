@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controllers;
-use App\Services\Router;
 
 class Auth {
     public static function register(array $data): bool {

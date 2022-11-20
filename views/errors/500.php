@@ -2,7 +2,8 @@
 
 // required context
 $title = "Error 500";
-$content = "<h1>500: Internal Server Error</h1>";
+$error_text = "500: Internal Server Error";
 
 // call a template
-require 'views/templates/error_template.php';
+$content_template = 'error.php';
+require 'views/templates/dafault_template.php';

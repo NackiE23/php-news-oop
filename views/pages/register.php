@@ -1,15 +1,9 @@
 <?php
 
+// instructions
 use App\Controllers\Auth;
 use App\Services\Router;
 
-// global settings
-
-
-// required context
-$title = "Register page";
-
-// actions
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $success = Auth::register([
         'email' => $_POST['email'],
@@ -26,6 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     exit();
 }
+
+
+// required context
+$title = "Register page";
+
 
 // call a template
 $content_template = "register.php";

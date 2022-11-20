@@ -1,8 +1,14 @@
 <h1>Login Page</h1>
 
-<form action="/login" method="POST">
-    <input type="email" id="email" name="email">
-    <input type="password" id="password" name="password">
+<form class="form" action="/login" method="POST">
+    <div class="form_case">
+        <label class="form_case_label" for="email_field">Email: </label>
+        <input type="email" id="email_field" name="email">
+    </div>
+    <div class="form_case">
+        <label class="form_case_label" for="password_field">Password: </label>
+        <input type="password" id="password_field" name="password">
+    </div>
 
-    <input type="submit" value="Send request">
+    <input type="submit" value="Log In">
 </form>

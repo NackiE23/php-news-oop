@@ -2,7 +2,8 @@
 
 // required context
 $title = "Error 401";
-$content = "<h1>401: Unauthorized</h1>";
+$error_text = "401: Unauthorized";
 
 // call a template
-require 'views/templates/error_template.php';
+$content_template = 'error.php';
+require 'views/templates/dafault_template.php';

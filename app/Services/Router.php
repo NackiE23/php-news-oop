@@ -13,11 +13,11 @@ class Router {
         ];
     }
 
-    public static function redirect($uri) {
+    public static function redirect(string $uri) {
         header("Location: " . $uri);
     }
 
-    public static function raise_error($error_code) {
+    public static function raise_error(string $error_code) {
         require_once "views/errors/" . $error_code . ".php";
     }
 
