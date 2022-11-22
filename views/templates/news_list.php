@@ -3,6 +3,7 @@
 <?php
 while ($news = $news_array->fetchArray(SQLITE3_ASSOC)) {
     ?>
+    <br><hr>
     <div class='news'>
         <div class='row'>
             <h2><?= $news['title'] ?></h2>

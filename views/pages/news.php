@@ -18,6 +18,7 @@ if (!$_GET['id']) {
 
 // required data
 $news = News::get($_GET['id']);
+$news_owner = $news['user_id'] == $_SESSION['user']['id'];
 
 $title = $news['title'];
 $is_comments_exist = Comment::check_if_exists($news['id']);

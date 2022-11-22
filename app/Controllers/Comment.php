@@ -7,6 +7,14 @@ class Comment {
         $sql = 'INSERT INTO comments (main_text, news_id, user_id) 
                 VALUES 
                     ("' . $main_text . '","' . $news_id . '","' . $user_id . '")';
+        
+        return $GLOBALS['db']->exec($sql);
+    }
+
+    public static function delete($comment_id): bool {
+        $sql = "DELETE FROM comments 
+                Where id == $comment_id";
+
         return $GLOBALS['db']->exec($sql);
     }
 
@@ -14,15 +22,17 @@ class Comment {
         $sql = "SELECT COUNT(*) as count
                 FROM comments c
                 WHERE c.news_id == $news_id";
+        
         return $GLOBALS['db']->querySingle($sql) > 0;
     }
 
     public static function all($news_id): \SQLite3Result {
-        $sql = "SELECT c.id, c.main_text, u.username 
+        $sql = "SELECT c.id, c.main_text, c.user_id, u.username 
                 FROM comments c 
                 JOIN users u
                     ON c.user_id == u.id
                 WHERE c.news_id == $news_id";
+        
         return $GLOBALS['db']->query($sql);
     }
 }

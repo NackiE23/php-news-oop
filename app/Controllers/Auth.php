@@ -21,12 +21,12 @@ class Auth {
                 return true;
             } else {
                 $_SESSION['message'] = ["category" => "danger", "text" => "SQLite Error - $errorMsg"];
-                return false;
             }
         } else {
             $_SESSION['message'] = ["category" => "danger", "text" => "Passwords do not match!"];
-            return false;
         }
+
+        return false;
     }
 
     public static function login(array $data): bool {
@@ -45,15 +45,15 @@ class Auth {
                 return true;
             } else {
                 $_SESSION['message'] = ["category" => "danger", "text" => "Wrong password or email!"];
-                return false;
             }
         } else {
-            $_SESSION['message'] = ["category" => "danger", "text" => "Wrong password or email!"];
-            return false;
+            $_SESSION['message'] = ["category" => "danger", "text" => "Wrong password or email!"];    
         }
+
+        return false;
     }
 
-    public static function logout(){
+    public static function logout(): void {
         unset($_SESSION['user']);
         $_SESSION['message'] = ['category' => 'success', 'text' => 'You successfuly logged out!'];
     }
