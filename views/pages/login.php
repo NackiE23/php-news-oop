@@ -1,15 +1,9 @@
 <?php
 
+// instructionsglobal settings
 use App\Controllers\Auth;
 use App\Services\Router;
 
-// global settings
-
-
-// required data
-$title = "Login page";
-
-// actions
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $success = Auth::login([
         'email' => $_POST['email'],
@@ -24,6 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     exit();
 }
+
+
+// required data
+$title = "Login page";
+
 
 // call a template
 $content_template = "login.php";

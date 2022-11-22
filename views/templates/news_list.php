@@ -15,7 +15,7 @@ while ($news = $news_array->fetchArray(SQLITE3_ASSOC)) {
         </div>
         <div class='row'>
             <p>
-                <a class='btn btn-secondary' href='/views/news.php?id=<?= $news['id'] ?>'>
+                <a class='btn btn-secondary' href='/news?id=<?= $news['id'] ?>'>
                     News Page
                 </a>
             </p>

@@ -3,24 +3,30 @@
 namespace App\Controllers;
 
 class News {
-    public static function create(array $data): bool {
+    public static function create(string $user_id, string $title, string $main_text) {
         $created = date('Y-m-d H:i');
-        $user_id = $data['user_id'];
-        $title = $data['title'];
-        $main_text = $data['main_text'];
 
-        $sql = "INSERT INTO news (created, title, main_text, user_id) 
+        $sql = 'INSERT INTO news (created, title, main_text, user_id) 
                 VALUES 
-                    ('$created', '$title', '$main_text', $user_id)";
+                    ("' . $created . '","' . $title . '","' . $main_text . '","' . $user_id . '")';
         return $GLOBALS['db']->exec($sql);
     }
 
+    public static function get(int $news_id): array {
+        $sql = "SELECT n.id, n.created, n.title, n.main_text, u.username
+                FROM news n
+                JOIN users u
+                    ON n.user_id == u.id
+                WHERE n.id = $news_id";
+        return $GLOBALS['db']->querySingle($sql, true);
+    }
+
     public static function all(): \SQLite3Result {
-        $sql = "SELECT news.id, news.created, news.title, news.main_text, users.username 
-                FROM news 
-                JOIN users 
-                    ON news.user_id == users.id 
-                ORDER BY news.created DESC";
+        $sql = "SELECT n.id, n.created, n.title, n.main_text, u.username 
+                FROM news n
+                JOIN users u
+                    ON n.user_id == u.id 
+                ORDER BY n.created DESC";
         return $GLOBALS['db']->query($sql);
     }
 }

@@ -9,12 +9,8 @@ if (!$_SESSION['user']) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $success = News::create([
-        'user_id' => $_POST['user_id'],
-        'title' => $_POST['title'],
-        'main_text' => $_POST['main_text']
-    ]);
-
+    $success = News::create($_POST['user_id'], $_POST['title'], $_POST['main_text']);
+    
     if ($success) {
         $_SESSION['message'] = ["category" => "success", "text" => "News has been added!"];
         Router::redirect('/');
@@ -22,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['message'] = ["category" => "danger", "text" => "Database Error - " . $GLOBALS['db']->lastErrorMsg()];
         Router::redirect('/news/create');
     }
+
+    exit();
 }
 
 

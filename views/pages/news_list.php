@@ -1,6 +1,6 @@
 <?php
 
-// global settings
+// instructions
 use App\Controllers\News;
 
 

@@ -9,7 +9,17 @@ class Router {
         self::$list[] = [
             "uri" => $uri,
             "page" => $page_name,
-            "methods" => $methods
+            "methods" => $methods,
+            "is_reg" => false
+        ];
+    }
+
+    public static function route_reg(string $uri, string $page_name, array $methods) {
+        self::$list[] = [
+            "uri" => $uri,
+            "page" => $page_name,
+            "methods" => $methods,
+            "is_reg" => true
         ];
     }
 
@@ -25,7 +35,14 @@ class Router {
         $query = $_GET['q'];
         
         foreach(self::$list as $route) {
-            if ($route['uri'] === '/' . $query) {
+            if ($route['is_reg']) {
+                if (in_array($_SERVER['REQUEST_METHOD'], $route['methods'])) {
+                    require_once "views/pages/" . $route['page'] . ".php";
+                    exit();
+                } else {
+                    break;
+                }
+            } elseif ($route['uri'] === '/' . $query) {
                 if (in_array($_SERVER['REQUEST_METHOD'], $route['methods'])) {
                     require_once "views/pages/" . $route['page'] . ".php";
                     exit();
