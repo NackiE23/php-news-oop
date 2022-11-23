@@ -13,6 +13,20 @@ class News {
         return $GLOBALS['db']->exec($sql);
     }
 
+    public static function change($news_id, array $params): bool {
+        $keys = array_keys($params);
+        $sql = "UPDATE news SET ";
+
+        foreach ($keys as $key) {
+            $sql .= $key . ' = "' . $params[$key] . '",';
+        }
+
+        $sql = rtrim($sql, ',');
+        $sql .= ' WHERE news.id == ' . $news_id;
+
+        return $GLOBALS['db']->exec($sql);;
+    }
+
     public static function delete($news_id): bool {
         $sql = "DELETE FROM news 
                 Where id == $news_id";
@@ -20,7 +34,7 @@ class News {
         return $GLOBALS['db']->exec($sql);
     }
 
-    public static function get(int $news_id): array {
+    public static function get($news_id): array {
         $sql = "SELECT n.id, n.created, n.title, n.main_text, n.user_id, u.username
                 FROM news n
                 JOIN users u

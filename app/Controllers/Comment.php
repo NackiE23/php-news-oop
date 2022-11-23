@@ -11,6 +11,20 @@ class Comment {
         return $GLOBALS['db']->exec($sql);
     }
 
+    public static function change($comment_id, array $params): bool {
+        $keys = array_keys($params);
+        $sql = "UPDATE comments SET ";
+
+        foreach ($keys as $key) {
+            $sql .= $key . ' = "' . $params[$key] . '",';
+        }
+
+        $sql = rtrim($sql, ',');
+        $sql .= ' WHERE comments.id == ' . $comment_id;
+
+        return $GLOBALS['db']->exec($sql);;
+    }
+
     public static function delete($comment_id): bool {
         $sql = "DELETE FROM comments 
                 Where id == $comment_id";
