@@ -4,9 +4,7 @@
             "App\\": "app/"
         }
     },
-    "config": {
-        "platform": {
-            "php": "7.4.3"
-        }
+    "require": {
+        "php": "^7.4.0"
     }
 }
