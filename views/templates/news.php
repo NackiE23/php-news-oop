@@ -10,16 +10,17 @@
 
 <h1 class="news__title">
     <?= $news['title'] ?>
-<?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
-    <!-- Change title form -->
-    <button class="openForm m-0 ms-1" data-form-class="change_title_form">Change title</button>
+    <?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
+        <button class="openForm m-0 ms-1" data-form-class="change_title_form">Change title</button>
+    <?php } ?>
 </h1>
-    <form class="form change_title_form" action="/news/change" method="POST" style="display: none;">
-        <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-        <input type="text" name="title" placeholder="Title" value="<?= $news['title'] ?>" required>
-        <input type="submit" value="Change title">
-    </form>
-<?php } ?>
+
+<!-- Change title form -->
+<form class="form change_title_form" action="/news/change" method="POST" style="display: none;">
+    <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
+    <input type="text" name="title" placeholder="Title" value="<?= $news['title'] ?>" required>
+    <input type="submit" value="Change title">
+</form>
 
 
 <p class="news__created">
@@ -27,18 +28,20 @@
 </p>
 <p class="news__main_text">
     <?= $news['main_text'] ?>
-<?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
-    <!-- Change main text form -->
-    <br>
-    <button class="openForm m-0 ms-1" data-form-class="change_main_text_form">Change text</button>
+    <?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
+        <br>
+        <button class="openForm m-0 ms-1" data-form-class="change_main_text_form">
+            Change text
+        </button>
+    <?php } ?>
 </p>
-    <form class="form change_main_text_form" action="/news/change" method="POST" style="display: none;">
-        <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-        <textarea name="main_text" placeholder="Main Text" required><?= $news['main_text'] ?></textarea>
-        <input type="submit" value="Change main text">
-    </form>
-<?php } ?>
 
+<!-- Change main text form -->
+<form class="form change_main_text_form" action="/news/change" method="POST" style="display: none;">
+    <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
+    <textarea name="main_text" placeholder="Main Text" required><?= $news['main_text'] ?></textarea>
+    <input type="submit" value="Change main text">
+</form>
 
 <!-- Comments -->
 <br><hr><br>

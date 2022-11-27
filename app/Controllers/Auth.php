@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Controllers\User;
+
 class Auth {
     public static function register(array $data): bool {
         $email = $data['email'];
@@ -11,8 +13,7 @@ class Auth {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         if ($password === $password_confirm) {
-            $sql = "INSERT INTO users (email, username, password) VALUES ('" . $email . "', '" . $username . "', '" . $hashed_password . "')";
-            $res = $GLOBALS['db']->exec($sql);
+            $res = User::create($email, $username, $hashed_password);
     
             $errorMsg = $GLOBALS['db']->lastErrorMsg();
     
@@ -30,18 +31,15 @@ class Auth {
     }
 
     public static function login(array $data): bool {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $email = $data['email'];
+        $password = $data['password'];
 
-        $sql = "SELECT * FROM users WHERE email LIKE '$email'";
-        $responce = $GLOBALS['db']->query($sql);
-
-        if ($responce) {
-            $result = $responce->fetchArray(SQLITE3_ASSOC);
-
-            if (password_verify($password, $result['password'])) {
-                $_SESSION['user'] = $result;
-                $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly logged in, {$result['username']}!"];
+        $user = User::get($email);
+        
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                $_SESSION['user'] = $user;
+                $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly logged in, {$user['username']}!"];
                 return true;
             } else {
                 $_SESSION['messages'][] = ["category" => "danger", "text" => "Wrong password or email!"];
