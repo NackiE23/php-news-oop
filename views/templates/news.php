@@ -1,18 +1,18 @@
 <p>
-<?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
+<?php if ($news_owner || $_SESSION['user']['is_admin']): ?>
     <!-- Delete news form -->
     <form action="/news/delete" method="POST">
         <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
         <input type="submit" value="Delete This News">
     </form>
-<?php } ?>
+<?php endif; ?>
 </p>
 
 <h1 class="news__title">
     <?= $news['title'] ?>
-    <?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
-        <button class="openForm m-0 ms-1" data-form-class="change_title_form">Change title</button>
-    <?php } ?>
+<?php if ($news_owner || $_SESSION['user']['is_admin']): ?>
+    <button class="openForm m-0 ms-1" data-form-class="change_title_form">Change title</button>
+<?php endif; ?>
 </h1>
 
 <!-- Change title form -->
@@ -28,12 +28,12 @@
 </p>
 <p class="news__main_text">
     <?= $news['main_text'] ?>
-    <?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
-        <br>
-        <button class="openForm m-0 ms-1" data-form-class="change_main_text_form">
-            Change text
-        </button>
-    <?php } ?>
+<?php if ($news_owner || $_SESSION['user']['is_admin']): ?>
+    <br>
+    <button class="openForm m-0 ms-1" data-form-class="change_main_text_form">
+        Change text
+    </button>
+<?php endif; ?>
 </p>
 
 <!-- Change main text form -->
@@ -47,45 +47,37 @@
 <br><hr><br>
 <h1>Comments</h1>
 <ul>
-<?php
-    if ($comments) {
-        while ($comment = $comments->fetchArray(SQLITE3_ASSOC)) {
-            ?>
-            <li class='news__comment'>
-                <span class="news__comment_text">
-                    <?= $comment['username'] ?>: <?= $comment['main_text'] ?>
-                </span>
-            <?php
-            if ($_SESSION['user']['id'] == $comment['user_id'] || $_SESSION['user']['is_admin']) {
-                ?>
-                <a href="#" class="openForm" data-form-class="change_comment<?= $comment['id'] ?>_form">Change</a>
-                |
-                <form action="/comment/delete" method="POST">
-                    <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
-                    <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
-                    <a href="#" onclick="this.closest('form').submit();return false;">Delete</a>
-                </form>
-            </li>
-                <form class="form change_comment<?= $comment['id'] ?>_form" action="/comment/change" method="POST" style="display: none;">
-                    <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
-                    <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
-                    <input type="text" name="main_text" value="<?= $comment['main_text'] ?>" required>
-                    <input type="submit" value="Change comment">
-                </form>
-                <?php 
-            }
-            ?>
-            <?php 
-        }
-    } else {
-            echo "No comments yet";
-    }
-?>
+<?php if ($comments): ?>
+<?php while ($comment = $comments->fetchArray(SQLITE3_ASSOC)): ?>
+    <li class='news__comment'>
+        <span class="news__comment_text">
+            <?= $comment['username'] ?>: <?= $comment['main_text'] ?>
+        </span>
+<?php if ($_SESSION['user']['id'] == $comment['user_id'] || $_SESSION['user']['is_admin']): ?>
+        <a href="#" class="openForm" data-form-class="change_comment<?= $comment['id'] ?>_form">Change</a>
+        |
+        <form action="/comment/delete" method="POST">
+            <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
+            <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
+            <a href="#" onclick="this.closest('form').submit();return false;">Delete</a>
+        </form>
+    </li>
+    <form class="form change_comment<?= $comment['id'] ?>_form" action="/comment/change" method="POST" style="display: none;">
+        <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
+        <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
+        <input type="text" name="main_text" value="<?= $comment['main_text'] ?>" required>
+        <input type="submit" value="Change comment">
+    </form>
+<?php endif; ?>
+<?php endwhile; ?>
+<?php else: ?>
+    No comments yet 
+<?php endif; ?>
 </ul>
 <br><hr><br>
 
 <!-- Add comment form -->
-<?php if ($_SESSION['user']) { ?>
+<?php if ($_SESSION['user']): ?>
 <p>
     <form method='POST' action='/comment/create'>
         <input type='hidden' name='user_id' value=<?= $_SESSION['user']['id']?>>
@@ -97,5 +89,4 @@
         <input type='submit' class='btn btn-secondary' value='Add comment'>
     </form>
 </p>
-<?php 
-}
+<?php endif; ?>
