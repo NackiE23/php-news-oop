@@ -16,7 +16,7 @@
 </h1>
     <form class="form change_title_form" action="/news/change" method="POST" style="display: none;">
         <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-        <input type="text" name="title" placeholder="Title" value="<?= $news['title'] ?>">
+        <input type="text" name="title" placeholder="Title" value="<?= $news['title'] ?>" required>
         <input type="submit" value="Change title">
     </form>
 <?php } ?>
@@ -34,7 +34,7 @@
 </p>
     <form class="form change_main_text_form" action="/news/change" method="POST" style="display: none;">
         <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-        <textarea name="main_text" placeholder="Main Text"><?= $news['main_text'] ?></textarea>
+        <textarea name="main_text" placeholder="Main Text" required><?= $news['main_text'] ?></textarea>
         <input type="submit" value="Change main text">
     </form>
 <?php } ?>
@@ -66,7 +66,7 @@
                 <form class="form change_comment<?= $comment['id'] ?>_form" action="/comment/change" method="POST" style="display: none;">
                     <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
                     <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
-                    <input type="text" name="main_text" value="<?= $comment['main_text'] ?>">
+                    <input type="text" name="main_text" value="<?= $comment['main_text'] ?>" required>
                     <input type="submit" value="Change comment">
                 </form>
                 <?php 
@@ -88,7 +88,7 @@
         <input type='hidden' name='user_id' value=<?= $_SESSION['user']['id']?>>
         <input type='hidden' name='news_id' value=<?= $news['id']?>>
         <div class='form-floating'>
-            <textarea class='form-control bg-secondary mb-2 text-light' name='main_text' placeholder='Leave a comment here' id='floatingTextarea2'></textarea>
+            <textarea name='main_text' placeholder='Leave a comment here' required></textarea>
         </div>
 
         <input type='submit' class='btn btn-secondary' value='Add comment'>

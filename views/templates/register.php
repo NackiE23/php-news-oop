@@ -3,19 +3,19 @@
 <form class="form" action="/register" method="POST">
     <div class="form_case">
         <label class="form_case_label" for="email_field">Email: </label>
-        <input type="email" id="email_field" name="email">
+        <input type="email" id="email_field" name="email" required>
     </div>
     <div class="form_case">
         <label class="form_case_label" for="username_field">Username: </label>
-        <input type="text" id="username_field" name="username">
+        <input type="text" id="username_field" name="username" required>
     </div>
     <div class="form_case">
         <label class="form_case_label" for="password_field">Password: </label>
-        <input type="password" id="password_field" name="password">
+        <input type="password" id="password_field" name="password" required>
     </div>
     <div class="form_case">
         <label class="form_case_label" for="password_confirm_field">Password confirm: </label>
-        <input type="password" id="password_confirm_field" name="password_confirm">
+        <input type="password" id="password_confirm_field" name="password_confirm" required>
     </div>
 
     <input type="submit" value="Register">
