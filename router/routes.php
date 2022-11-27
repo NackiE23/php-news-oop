@@ -2,7 +2,7 @@
 
 use App\Services\Router;
 
-Router::route('/', 'news_list', ['GET']);
+Router::route('/', 'news_list', ['GET'], 'home_page');
 Router::route('/news', 'news', ['GET']);
 Router::route('/news/create', 'news_create', ['GET', 'POST']);
 Router::route('/news/change', 'news_change', ['POST']);

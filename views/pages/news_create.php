@@ -5,7 +5,7 @@ use App\Controllers\News;
 use App\Services\Router;
 
 if (!$_SESSION['user']) {
-    Router::redirect('/');    
+    Router::uri_redirect('/');    
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($success) {
         $_SESSION['messages'][] = ["category" => "success", "text" => "News has been added!"];
-        Router::redirect('/');
+        Router::uri_redirect('/');
     } else {
         $_SESSION['messages'][] = ["category" => "danger", "text" => "Database Error - " . $GLOBALS['db']->lastErrorMsg()];
-        Router::redirect('/news/create');
+        Router::uri_redirect('/news/create');
     }
 
     exit();

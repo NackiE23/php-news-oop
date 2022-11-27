@@ -11,4 +11,4 @@ if ($success) {
 } else {
     $_SESSION['messages'][] = ["category" => "danger", "text" => "Database Error - " . $GLOBALS['db']->lastErrorMsg()];
 }
-Router::redirect('/news?id=' . $_POST['news_id']);
+Router::uri_redirect('/news?id=' . $_POST['news_id']);

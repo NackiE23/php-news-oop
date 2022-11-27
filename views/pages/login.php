@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     ]);
 
     if ($success) {
-        Router::redirect('/');
+        Router::name_redirect('home_page');
     } else {
-        Router::redirect('/login');
+        Router::uri_redirect('/login');
     }
 
     exit();

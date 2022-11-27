@@ -7,7 +7,7 @@ use App\Controllers\News;
 use App\Services\Router;
 
 if (!$_GET['id']) {
-    Router::redirect('/');
+    Router::uri_redirect('/');
 }
 
 // $str = "/news/23234";

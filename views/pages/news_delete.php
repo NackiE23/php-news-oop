@@ -13,4 +13,4 @@ if ($success) {
     $_SESSION['messages'][] = ["category" => "danger", "text" => "Database Error - " . $GLOBALS['db']->lastErrorMsg()];
 }
 
-Router::redirect('/');
+Router::uri_redirect('/');
