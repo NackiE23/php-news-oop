@@ -54,12 +54,12 @@
 
 
 <div id="pop-up-messages">
-    <?php if ($_SESSION['message']) { ?>
-    <div class="pop-up-message <?= $_SESSION['message']['category'] ?>">
-        <div class="close"></div>
-        <p class="pop-up-message__text"><?= $_SESSION['message']['text'] ?></p>
-    </div>
-    <?php } unset($_SESSION['message']);?>
+    <?php if ($_SESSION['messages']) { foreach($_SESSION['messages'] as $message) { ?>
+            <div class="pop-up-message <?= $message['category'] ?>">
+                <div class="close"></div>
+                <p class="pop-up-message__text"><?= $message['text'] ?></p>
+            </div>
+    <?php } } unset($_SESSION['messages']); ?>
 </div>
 
 <div class="container">

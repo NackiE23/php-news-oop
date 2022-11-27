@@ -17,13 +17,13 @@ class Auth {
             $errorMsg = $GLOBALS['db']->lastErrorMsg();
     
             if ($res) {
-                $_SESSION['message'] = ["category" => "success", "text" => "You successfuly registered! Log in please"];
+                $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly registered! Log in please"];
                 return true;
             } else {
-                $_SESSION['message'] = ["category" => "danger", "text" => "SQLite Error - $errorMsg"];
+                $_SESSION['messages'][] = ["category" => "danger", "text" => "SQLite Error - $errorMsg"];
             }
         } else {
-            $_SESSION['message'] = ["category" => "danger", "text" => "Passwords do not match!"];
+            $_SESSION['messages'][] = ["category" => "danger", "text" => "Passwords do not match!"];
         }
 
         return false;
@@ -41,13 +41,13 @@ class Auth {
 
             if (password_verify($password, $result['password'])) {
                 $_SESSION['user'] = $result;
-                $_SESSION['message'] = ["category" => "success", "text" => "You successfuly logged in, {$result['username']}!"];
+                $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly logged in, {$result['username']}!"];
                 return true;
             } else {
-                $_SESSION['message'] = ["category" => "danger", "text" => "Wrong password or email!"];
+                $_SESSION['messages'][] = ["category" => "danger", "text" => "Wrong password or email!"];
             }
         } else {
-            $_SESSION['message'] = ["category" => "danger", "text" => "Wrong password or email!"];    
+            $_SESSION['messages'][] = ["category" => "danger", "text" => "Wrong password or email!"];    
         }
 
         return false;
@@ -55,6 +55,6 @@ class Auth {
 
     public static function logout(): void {
         unset($_SESSION['user']);
-        $_SESSION['message'] = ['category' => 'success', 'text' => 'You successfuly logged out!'];
+        $_SESSION['messages'][] = ['category' => 'success', 'text' => 'You successfuly logged out!'];
     }
 }

@@ -13,9 +13,9 @@ unset($_POST['news_id']);
 $success = Comment::change($comment_id, $_POST);
 
 if ($success) {
-    $_SESSION['message'] = ["category" => "success", "text" => "News has been deleted!"];
+    $_SESSION['messages'][] = ["category" => "success", "text" => "Comment has been changed!"];
 } else {
-    $_SESSION['message'] = ["category" => "danger", "text" => "Database Error - " . $GLOBALS['db']->lastErrorMsg()];
+    $_SESSION['messages'][] = ["category" => "danger", "text" => "Database Error - " . $GLOBALS['db']->lastErrorMsg()];
 }
 
 Router::redirect('/news?id=' . $news_id);
