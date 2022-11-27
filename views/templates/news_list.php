@@ -3,12 +3,11 @@
 <?php
 while ($news = $news_array->fetchArray(SQLITE3_ASSOC)) {
     ?>
-    <br><hr>
     <div class='news'>
         <div class='row'>
             <h2><?= $news['title'] ?></h2>
         </div>
-        <div class='row text-center p-1'>
+        <div class='row'>
             <p>Posted by <?= $news['username'] ?> at <?= $news['created'] ?></p>
         </div>
         <div class='row'>
@@ -20,7 +19,6 @@ while ($news = $news_array->fetchArray(SQLITE3_ASSOC)) {
                     News Page
                 </a>
             </p>
-            <h2></h2>
         </div>
     </div>
     <?php

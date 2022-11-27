@@ -16,13 +16,13 @@ function showMessage(message, type = 'success', timeOut = 3000) {
     }, timeOut+100)
 }
 
-function closeAllForms() {
-    $('.form').fadeOut('fast');
-};
+$('.openForm').click(function() {
+    $(this).parent().fadeOut('fast');
+    $(`.${$(this).attr('data-form-class')}`).fadeIn('fast');
+});
 
 $('.close').click(function() {
     $(this).parent().fadeOut('fast');
-    $("#blur").fadeOut('fast');
 });
 
 $("#pop-up-messages").on("click", '.close', function() {

@@ -1,37 +1,44 @@
 <p>
-<?php
-    if ($news_owner || $_SESSION['user']['is_admin']) { 
-        ?>
-        <!-- Delete news form -->
-        <form action="/news/delete" method="POST">
-            <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
-            <input type="submit" value="Delete This News">
-        </form>
-
-        <!-- Change title form -->
-        <form action="/news/change" method="POST">
-            <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-            <input type="text" name="title">
-            <input type="submit" value="Change title">
-        </form>
-
-        <!-- Change main_text form -->
-        <form action="/news/change" method="POST">
-            <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-            <textarea name="main_text"></textarea>
-            <input type="submit" value="Change main text">
-        </form>
-        <?php
-    }
-?>
+<?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
+    <!-- Delete news form -->
+    <form action="/news/delete" method="POST">
+        <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
+        <input type="submit" value="Delete This News">
+    </form>
+<?php } ?>
 </p>
 
-<h1><?= $news['title'] ?></h1>
+<h1 class="news__title">
+    <?= $news['title'] ?>
+    <?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
+        <!-- Change title form -->
+        <button class="openForm m-0 ms-1" data-form-class="change_title_form">Change title</button>
 
-<!-- Info -->
-<p><?= $news['created'] ?></p>
-<p><?= $news['username'] ?></p>
-<p><?= $news['main_text'] ?></p>
+        <form class="form change_title_form" action="/news/change" method="POST" style="display: none;">
+            <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
+            <input type="text" name="title" placeholder="Title" value="<?= $news['title'] ?>">
+            <input type="submit" value="Change title">
+        </form>
+    <?php } ?>
+</h1>
+
+<p class="news__created">
+    Posted by <?= $news['username'] ?> at <?= $news['created'] ?>
+</p>
+<p class="news__main_text">
+    <?= $news['main_text'] ?>
+    <?php if ($news_owner || $_SESSION['user']['is_admin']) { ?>
+        <!-- Change main text form -->
+        <br>
+        <button class="openForm m-0 ms-1" data-form-class="change_main_text_form">Change text</button>
+
+        <form class="form change_main_text_form" action="/news/change" method="POST" style="display: none;">
+            <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
+            <textarea name="main_text" placeholder="Main Text"><?= $news['main_text'] ?></textarea>
+            <input type="submit" value="Change main text">
+        </form>
+    <?php } ?>
+</p>
 
 <!-- Comments -->
 <br><hr><br>
@@ -41,27 +48,30 @@
     if ($comments) {
         while ($comment = $comments->fetchArray(SQLITE3_ASSOC)) {
             ?>
-            <li class='list-group-item bg-secondary mb-1'>
+            <li class='news__comment'>
+                <span class="news__comment_text">
+                    <?= $comment['username'] ?>: <?= $comment['main_text'] ?>
+                </span>
             <?php
             if ($_SESSION['user']['id'] == $comment['user_id'] || $_SESSION['user']['is_admin']) {
                 ?>
+                <a href="#" class="openForm" data-form-class="change_comment<?= $comment['id'] ?>_form">Change</a>
+                |
                 <form action="/comment/delete" method="POST">
                     <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
                     <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
-                    <input type="submit" value="Delete This Comment">
+                    <a href="#" onclick="this.closest('form').submit();return false;">Delete</a>
                 </form>
-
-                <form action="/comment/change" method="POST">
+            </li>
+                <form class="form change_comment<?= $comment['id'] ?>_form" action="/comment/change" method="POST" style="display: none;">
                     <input type="hidden" value="<?= $comment['id'] ?>" name="comment_id">
                     <input type="hidden" value="<?= $news['id'] ?>" name="news_id">
-                    <input type="text" name="main_text">
+                    <input type="text" name="main_text" value="<?= $comment['main_text'] ?>">
                     <input type="submit" value="Change comment">
                 </form>
                 <?php 
             }
             ?>
-                <?= $comment['username'] ?>: <?= $comment['main_text'] ?>
-            </li>
             <?php 
         }
     } else {

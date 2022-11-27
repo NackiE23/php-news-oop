@@ -10,10 +10,10 @@
 <body>
 
 <header>
-    <div class="elements">
+    <div class="elements container">
         <div class="elements__logo">
             <a href="/">
-                NEWS
+                NEWS PROJECT
                 <!-- <img class="elements__logo_img" src="#" alt="NEWS"> -->
             </a>
         </div>

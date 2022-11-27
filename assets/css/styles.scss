@@ -4,6 +4,10 @@ $text-color: #212121;
 $bg-input-color: #484746;
 $error-color: #f03329;
 
+
+/*
+** Main
+*/
 * {
     padding: 0;
     margin: 0;
@@ -33,6 +37,10 @@ body {
     text-align: center;
 }
 
+.container {
+    margin: 0 10%;
+}
+
 .close {
     position: absolute;
     background-color: $text-color;
@@ -53,6 +61,18 @@ body {
     }
 }
 
+.m-0 {
+    margin: 0;
+}
+
+.ms-1 {
+    margin-left: 5px;
+}
+
+
+/*
+** Forms
+*/
 input[type=submit], .customize_input, button, input {
     margin: 5px auto 0 auto;
     padding: 10px 15px;
@@ -101,11 +121,11 @@ textarea {
     border: 2px solid $text-color;
     border-radius: 25px;
     padding: 15px 20px;
+    margin: 0 auto;
     letter-spacing: 1px;
-    min-width: 200px;
     min-height: 64px;
-    max-width: 300px;
-    max-height: 200px;
+    width: 50%;
+    resize: vertical;
     outline-color: $primary-color;
 }
 
@@ -125,6 +145,7 @@ textarea {
     
     &_case {
         position: relative;
+        margin: 5px 0;
 
         &_label {
             display: inline-block;
@@ -136,6 +157,10 @@ textarea {
     }
 }
 
+
+/*
+** Pop up message
+*/
 #pop-up-messages {
     flex-direction: column;
     z-index: 999;
@@ -164,6 +189,10 @@ textarea {
     background-color: $error-color;
 }
 
+
+/*
+** Header
+*/
 header {
     position: relative;
     top: 0;
@@ -174,7 +203,7 @@ header {
 
     .elements {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
 
         &__logo {
@@ -194,6 +223,39 @@ header {
                     }
                 }
             }
+        }
+    }
+}
+
+
+/*
+** News
+*/
+.news {
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid $text-color;
+
+    .row {
+        margin: 5px 0;
+    }
+
+    &__title {
+        margin: 5px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__created {
+        margin: 15px 0;
+    }
+
+    &__comment {
+        display: flex;
+        justify-content: center;
+
+        &_text {
+            margin-right: 10px;
         }
     }
 }
