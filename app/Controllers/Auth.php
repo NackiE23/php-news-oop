@@ -39,7 +39,7 @@ class Auth {
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $_SESSION['user'] = $user;
-                $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly logged in, {$user['username']}!"];
+                $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly logged in, " . htmlspecialchars($user['username']) . "!"];
                 return true;
             } else {
                 $_SESSION['messages'][] = ["category" => "danger", "text" => "Wrong password or email!"];

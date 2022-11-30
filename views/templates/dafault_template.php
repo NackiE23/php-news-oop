@@ -34,7 +34,7 @@
             |
             <a class="elements__button_link" href="/register">Register</a>
 <?php else: ?>
-            <?= $_SESSION['user']['username'] ?> |
+            <?= htmlspecialchars($_SESSION['user']['username']) ?> |
             <a class="elements__button_link" href="/logout">Logout</a>
 <?php endif; ?>
         </div>
