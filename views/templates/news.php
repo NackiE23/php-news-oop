@@ -9,7 +9,7 @@
 </p>
 
 <h1 class="news__title">
-    <?= $news['title'] ?>
+    <?= htmlspecialchars($news['title']) ?>
 <?php if ($news_owner || $_SESSION['user']['is_admin']): ?>
     <button class="openForm m-0 ms-1" data-form-class="change_title_form">Change title</button>
 <?php endif; ?>
@@ -24,10 +24,10 @@
 
 
 <p class="news__created">
-    Posted by <?= $news['username'] ?> at <?= $news['created'] ?>
+    Posted by <?= htmlspecialchars($news['username']) ?> at <?= $news['created'] ?>
 </p>
 <p class="news__main_text">
-    <?= $news['main_text'] ?>
+    <?= htmlspecialchars($news['main_text']) ?>
 <?php if ($news_owner || $_SESSION['user']['is_admin']): ?>
     <br>
     <button class="openForm m-0 ms-1" data-form-class="change_main_text_form">
@@ -51,7 +51,7 @@
 <?php while ($comment = $comments->fetchArray(SQLITE3_ASSOC)): ?>
     <li class='news__comment'>
         <span class="news__comment_text">
-            <?= $comment['username'] ?>: <?= $comment['main_text'] ?>
+            <?= htmlspecialchars($comment['username']) ?>: <?= htmlspecialchars($comment['main_text']) ?>
         </span>
 <?php if ($_SESSION['user']['id'] == $comment['user_id'] || $_SESSION['user']['is_admin']): ?>
         <a href="#" class="openForm" data-form-class="change_comment<?= $comment['id'] ?>_form">Change</a>

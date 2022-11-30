@@ -5,13 +5,13 @@ while ($news = $news_array->fetchArray(SQLITE3_ASSOC)) {
     ?>
     <div class='news'>
         <div class='row'>
-            <h2><?= $news['title'] ?></h2>
+            <h2><?= htmlspecialchars($news['title']); ?></h2>
         </div>
         <div class='row'>
-            <p>Posted by <?= $news['username'] ?> at <?= $news['created'] ?></p>
+            <p>Posted by <?= htmlspecialchars($news['username']) ?> at <?= $news['created'] ?></p>
         </div>
         <div class='row'>
-            <p><?= substr($news['main_text'], 0, 130) ?>...</p>
+            <p><?= htmlspecialchars(substr($news['main_text'], 0, 130)) ?>...</p>
         </div>
         <div class='row'>
             <p>
