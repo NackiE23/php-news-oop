@@ -40,7 +40,7 @@
         </div>
     </div>
 </header>
-
+<?php use App\Controllers\NewModel; echo NewModel::create('asd', 'asdf ', 'sdafasdf'); ?>
 
 <div id="pop-up-messages">
 <?php if ($_SESSION['messages']): ?>

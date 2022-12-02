@@ -34,9 +34,11 @@ class Auth {
         $email = $data['email'];
         $password = $data['password'];
 
-        $user = User::get($email);
-        
-        if ($user) {
+        $res = User::get($email);
+
+        if ($res) {
+            $user = $res->fetchArray(SQLITE3_ASSOC);
+
             if (password_verify($password, $user['password'])) {
                 $_SESSION['user'] = $user;
                 $_SESSION['messages'][] = ["category" => "success", "text" => "You successfuly logged in, " . htmlspecialchars($user['username']) . "!"];

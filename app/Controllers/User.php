@@ -3,26 +3,39 @@
 namespace App\Controllers;
 
 class User {
-    public static function create(string $email, string $username, string $password): bool {
+    public static function create(string $email, string $username, string $password): \SQLite3Result {
         $sql = 'INSERT INTO users (email, username, password) 
                 VALUES 
-                    ("' . $email . '", "' . $username . '", "' . $password . '")';
+                    (:email, :username, :password)';
 
-        return $GLOBALS['db']->exec($sql);
+        $stmt = $GLOBALS['db']->prepare($sql);
+
+        $stmt->bindParam(':email', $email, SQLITE3_TEXT);
+        $stmt->bindParam(':username', $username, SQLITE3_TEXT);
+        $stmt->bindParam(':password', $password, SQLITE3_TEXT);
+
+        return $stmt->execute();
     }
 
-    public static function delete($user_id): bool {
-        $sql = "DELETE FROM users 
-                Where id == $user_id";
+    public static function delete($user_id): \SQLite3Result {
+        $sql = 'DELETE FROM users 
+                Where id == :user_id';
 
-        return $GLOBALS['db']->exec($sql);
+        $stmt = $GLOBALS['db']->prepare($sql);
+
+        $stmt->bindParam(':user_id', $user_id, SQLITE3_INTEGER);
+
+        return $stmt->execute();
     }
 
-    public static function get($email): array {
-        $sql = "SELECT id, email, username, password, is_admin
+    public static function get($email): \SQLite3Result {
+        $sql = 'SELECT *
                 FROM users
-                WHERE email LIKE '" . $email . "'";
+                WHERE email LIKE :email';
+        $stmt = $GLOBALS['db']->prepare($sql);
+
+        $stmt->bindParam(':email', $email, SQLITE3_TEXT);
         
-        return $GLOBALS['db']->querySingle($sql, true);
+        return $stmt->execute();
     }
 }
