@@ -10,7 +10,7 @@ $news_id = $_POST['news_id'];
 unset($_POST['comment_id']);
 unset($_POST['news_id']);
 
-$success = Comment::change($comment_id, $_POST);
+$success = Comment::change((int)$comment_id, $_POST);
 
 if ($success) {
     $_SESSION['messages'][] = ["category" => "success", "text" => "Comment has been changed!"];

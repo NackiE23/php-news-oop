@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 class News {
-    public static function create(string $user_id, string $title, string $main_text): \SQLite3Result {
+    public static function create(string $user_id, string $title, string $main_text) {
         $created = date('Y-m-d H:i');
 
         $sql = 'INSERT INTO news (created, title, main_text, user_id) 
@@ -19,7 +19,7 @@ class News {
         return $stmt->execute();
     }
 
-    public static function change(int $news_id, array $params): \SQLite3Result {
+    public static function change(int $news_id, array $params) {
         $keys = array_keys($params);
         $allow_fields = ['title', 'main_text'];
 
@@ -32,7 +32,7 @@ class News {
             }
         }
         $sql = rtrim($sql, ',');
-        $sql .= " WHERE news.id == $news_id";
+        $sql .= " WHERE id == $news_id";
 
         $stmt = $GLOBALS['db']->prepare($sql);
         foreach ($keys as $key) {

@@ -21,7 +21,7 @@ if (!$news) {
 $news_owner = $news['user_id'] == $_SESSION['user']['id'];
 
 $title = $news['title'];
-$is_comments_exist = Comment::check_if_exists($news['id']);
+$is_comments_exist = Comment::check_if_exists((int)$news['id']);
 if ($is_comments_exist) {
     $comments = Comment::all($news['id']);
 }

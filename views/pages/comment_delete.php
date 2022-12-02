@@ -4,7 +4,7 @@
 use App\Controllers\Comment;
 use App\Services\Router;
 
-$success = Comment::delete($_POST['comment_id']);
+$success = Comment::delete((int)$_POST['comment_id']);
 
 if ($success) {
     $_SESSION['messages'][] = ["category" => "success", "text" => "Comment has been deleted!"];
