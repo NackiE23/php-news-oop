@@ -5,7 +5,7 @@ use App\Controllers\News;
 use App\Services\Router;
 
 
-$success = News::delete($_POST['news_id']);
+$success = News::delete((int)$_POST['news_id']);
 
 if ($success) {
     $_SESSION['messages'][] = ["category" => "success", "text" => "News has been deleted!"];

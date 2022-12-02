@@ -5,7 +5,7 @@ use App\Controllers\News;
 use App\Services\Router;
 
 if (!$_SESSION['user']) {
-    Router::uri_redirect('/');    
+    Router::uri_redirect('/');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -10,14 +10,14 @@ if (!$_GET['id']) {
     Router::uri_redirect('/');
 }
 
-// $str = "/news/23234";
-// $pattern = "/\d+/";
-// echo preg_match($pattern, $str, $output);
-// print_r($output);
-
 
 // required data
-$news = News::get($_GET['id']);
+$res = News::get((int)$_GET['id']);
+$news = $res->fetchArray(SQLITE3_ASSOC);
+if (!$news) {
+    Router::uri_redirect('/');
+}
+
 $news_owner = $news['user_id'] == $_SESSION['user']['id'];
 
 $title = $news['title'];

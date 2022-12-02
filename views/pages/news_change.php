@@ -7,7 +7,7 @@ use App\Services\Router;
 $news_id = $_POST['news_id'];
 unset($_POST['news_id']);
 
-$success = News::change($news_id, $_POST);
+$success = News::change((int)$news_id, $_POST);
 
 if ($success) {
     $_SESSION['messages'][] = ["category" => "success", "text" => "News has been changed!"];
